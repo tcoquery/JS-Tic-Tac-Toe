@@ -41,16 +41,25 @@ const gameFlow = (() => {
     return {round, player1, player2};
 })();
 
+
 let grid = document.querySelectorAll(".grid-cell")
 grid.forEach(cell =>{
-    cell.addEventListener("click", function() {
-        gameBoard.updateBoard(cell.getAttribute('data-value'));
-    });
+        cell.addEventListener("click", function() {
+            if(gameFlow.player1.marker === undefined) {
+                alert("You must enter players' name");
+                return; 
+            } else {
+                gameBoard.updateBoard(cell.getAttribute('data-value'));
+            }
+    })
 });
+
+
+
 
 btn.addEventListener("click", () => {
     if(document.getElementById('player-1').value == "" || document.getElementById('player-2').value == "") {
-        alert("Player's names cannot be empty.");
+        alert("Players' name cannot be empty.");
         return;
     } else {
         gameFlow.player1 = player(document.getElementById('player-1').value, "X"); 
@@ -60,3 +69,4 @@ btn.addEventListener("click", () => {
 });
 
 gameBoard.displayBoard();
+console.log(gameFlow.player1.name);
