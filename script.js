@@ -6,6 +6,8 @@ const player = (name, marker) => {
 
 const gameBoard = (() => {
     let board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    let player1 = {};
+    let player2 = {};
     const displayBoard = () => {
         for (let i = 1; i < 10; i++) {
             let grid = document.getElementById(i);
@@ -17,7 +19,7 @@ const gameBoard = (() => {
             if(board[n-1] == "X" || board[n-1] == "O") {
                 alert("This cell is already occupied !");
             } else { 
-                board[n-1] = player1.marker;
+                board[n-1] = gameBoard.player1.marker;
                 gameFlow.round++;
                 displayBoard();
             }            
@@ -25,17 +27,17 @@ const gameBoard = (() => {
             if(board[n-1] == "X" || board[n-1] == "O") {
                 alert("This cell is already occupied !");
             } else {
-                board[n-1] = player2.marker;
+                board[n-1] = gameBoard.player2.marker;
                 gameFlow.round--;
                 displayBoard();
             }
         }
     }
-    return {board, displayBoard, updateBoard};
+    return {board, player1, player2, displayBoard, updateBoard};
 })();
 
 const gameFlow = (() => {
-    let round = 1;
+    let round = 1; 
     return {round};
 })();
 
@@ -51,10 +53,12 @@ btn.addEventListener("click", () => {
         alert("Player's names cannot be empty.");
         return;
     } else {
-        const player1 = player(document.getElementById('player-1').value, "X"); 
-        const player2 = player(document.getElementById('player-2').value, "O");
+        gameBoard.player1 = player(document.getElementById('player-1').value, "X"); 
+        gameBoard.player2 = player(document.getElementById('player-2').value, "O");
         document.querySelector(".player-info").style.visibility = "hidden";
+        
     }
 });
 
 gameBoard.displayBoard();
+console.log(gameBoard.board)
