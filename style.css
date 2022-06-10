@@ -1,0 +1,27 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 200px);
+    grid-template-rows: repeat(3, 200px);
+    gap: 10px;
+    margin: 10px;
+    max-width: 600px;
+  }
+
+.grid-cell {
+      background-color: lightgrey;
+      font-size: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+}
+
+.grid-cell:hover {
+      background-color: grey;
+}
+
+.error {
+    color: red;
+}
+
+  
