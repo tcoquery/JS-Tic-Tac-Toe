@@ -5,13 +5,15 @@ const player = (name, marker) => {
 };
 
 const gameBoard = (() => {
-    let board = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    let board = [];
+    let winningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [7,5,3]];
     const displayBoard = () => {
         for (let i = 1; i < 10; i++) {
             let grid = document.getElementById(i);
             grid.textContent = board[i-1];
         }
     }
+
     const updateBoard = (n) => {
         if(gameFlow.round == 1) {
             if(board[n-1] == "X" || board[n-1] == "O") {
@@ -19,7 +21,10 @@ const gameBoard = (() => {
             } else { 
                 board[n-1] = gameFlow.player1.marker;
                 gameFlow.round++;
+                winningBoard(n, gameFlow.player1.marker);
+                console.log(winningCombinations);
                 displayBoard();
+                checkWinner();
             }            
         } else {
             if(board[n-1] == "X" || board[n-1] == "O") {
@@ -27,11 +32,36 @@ const gameBoard = (() => {
             } else {
                 board[n-1] = gameFlow.player2.marker;
                 gameFlow.round--;
+                winningBoard(n, gameFlow.player2.marker);
+                console.log(winningCombinations);
                 displayBoard();
+                checkWinner();
             }
         }
     }
-    return {board, displayBoard, updateBoard};
+
+    const winningBoard = (num, marker) => {
+        num.toString();
+        for (let i = 0; i < 8; i++) { 
+            for (let j = 0; j < 3; j++) {
+                if(winningCombinations[i][j] == num) {
+                    winningCombinations[i][j] = marker
+                }
+            }
+        }
+    }  
+
+    const checkWinner = () => {
+        for (let i = 0; i < 8; i++) {
+            if (winningCombinations[i].every(elem => elem == "X")) {
+                alert("Player 1 has won!");
+            } else if (winningCombinations[i].every(elem => elem == "O")) {
+                alert("Player 2 has won!");
+            } 
+        }
+    }
+
+    return {winningCombinations, checkWinner, displayBoard, updateBoard};
 })();
 
 const gameFlow = (() => {
@@ -69,4 +99,3 @@ btn.addEventListener("click", () => {
 });
 
 gameBoard.displayBoard();
-console.log(gameFlow.player1.name);
