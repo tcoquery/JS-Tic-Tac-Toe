@@ -1,11 +1,12 @@
 const btn = document.querySelector("#btn");
+const restart = document.querySelector("#restart");
 
 const player = (name, marker) => {
     return {name, marker};
 };
 
 const gameBoard = (() => {
-    let board = [];
+    let board = ["","","","","","","","",""];
     let winningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [7,5,3]];
     const displayBoard = () => {
         for (let i = 1; i < 10; i++) {
@@ -32,7 +33,6 @@ const gameBoard = (() => {
                 board[n-1] = gameFlow.player2.marker;
                 gameFlow.round++;
                 winningBoard(n, gameFlow.player2.marker);
-                console.log(gameFlow.round);
                 displayBoard();
                 checkWinner();
             }
@@ -54,23 +54,36 @@ const gameBoard = (() => {
         for (let i = 0; i < 8; i++) {
             if (winningCombinations[i].every(elem => elem == "X")) {
                 alert("Player 1 has won!");
+                restart()
             } else if (winningCombinations[i].every(elem => elem == "O")) {
                 alert("Player 2 has won!");
             } else if (gameFlow.round == 10) {
-                alert("it's a draw!")
+                alert("it's a draw!");
                 return
             }
         }
     }
 
-    return {winningCombinations, checkWinner, displayBoard, updateBoard};
+    const restart = () => {
+        winningCombinations = [[1,2,3], [4,5,6], [7,8,9], [1,4,7], [2,5,8], [3,6,9], [1,5,9], [7,5,3]];
+        board = ["","","","","","","","",""];
+        gameFlow.round = 1;
+        for (let i = 1; i < 10; i++) {
+            let grid = document.getElementById(i);
+            grid.textContent = '';
+        }
+    }
+
+    return {winningCombinations, restart, displayBoard, updateBoard};
 })();
 
 const gameFlow = (() => {
     let round = 1; 
     let player1 = {};
     let player2 = {};
+
     return {round, player1, player2};
+    
 })();
 
 
@@ -86,9 +99,6 @@ grid.forEach(cell =>{
     })
 });
 
-
-
-
 btn.addEventListener("click", () => {
     if(document.getElementById('player-1').value == "" || document.getElementById('player-2').value == "") {
         alert("Players' name cannot be empty.");
@@ -99,5 +109,9 @@ btn.addEventListener("click", () => {
         document.querySelector(".player-info").style.visibility = "hidden";
     }
 });
+
+restart.addEventListener("click", () => {
+    gameBoard.restart();
+})
 
 gameBoard.displayBoard();
