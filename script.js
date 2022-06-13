@@ -16,6 +16,7 @@ const gameBoard = (() => {
     }
 
     const updateBoard = (n) => {
+        console.log(winningCombinations.length)
         if(gameFlow.round % 2 != 0) {
             if(board[n-1] == "X" || board[n-1] == "O") {
                 alert("This cell is already occupied !");
@@ -54,13 +55,12 @@ const gameBoard = (() => {
         for (let i = 0; i < 8; i++) {
             if (winningCombinations[i].every(elem => elem == "X")) {
                 alert("Player 1 has won!");
-                restart()
             } else if (winningCombinations[i].every(elem => elem == "O")) {
                 alert("Player 2 has won!");
-            } else if (gameFlow.round == 10) {
-                alert("it's a draw!");
-                return
-            }
+            }  
+        } if (gameFlow.round == 10) {
+            alert("it's a draw!");
+            return
         }
     }
 
