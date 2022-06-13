@@ -15,14 +15,13 @@ const gameBoard = (() => {
     }
 
     const updateBoard = (n) => {
-        if(gameFlow.round == 1) {
+        if(gameFlow.round % 2 != 0) {
             if(board[n-1] == "X" || board[n-1] == "O") {
                 alert("This cell is already occupied !");
             } else { 
                 board[n-1] = gameFlow.player1.marker;
                 gameFlow.round++;
                 winningBoard(n, gameFlow.player1.marker);
-                console.log(winningCombinations);
                 displayBoard();
                 checkWinner();
             }            
@@ -31,9 +30,9 @@ const gameBoard = (() => {
                 alert("This cell is already occupied !");
             } else {
                 board[n-1] = gameFlow.player2.marker;
-                gameFlow.round--;
+                gameFlow.round++;
                 winningBoard(n, gameFlow.player2.marker);
-                console.log(winningCombinations);
+                console.log(gameFlow.round);
                 displayBoard();
                 checkWinner();
             }
@@ -57,7 +56,10 @@ const gameBoard = (() => {
                 alert("Player 1 has won!");
             } else if (winningCombinations[i].every(elem => elem == "O")) {
                 alert("Player 2 has won!");
-            } 
+            } else if (gameFlow.round == 10) {
+                alert("it's a draw!")
+                return
+            }
         }
     }
 
