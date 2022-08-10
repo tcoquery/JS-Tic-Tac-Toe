@@ -10,13 +10,16 @@
 </head>
 <body>
     <div class="player-info">
-        <label for="player-1">Player 1:</label><br>
-        <input type="text" id="player-1"><br>
-        <label for="player-2">Player 2:</label><br>
-        <input type="text" id="player-2"><br>
-        <button id="btn">Confirm</button>
+        <div class="modal-content">
+        <span>Enter names</span>
+        <label for="player-1">Player 1:</label>
+        <input type="text" id="player-1">
+        <label for="player-2">Player 2:</label>
+        <input type="text" id="player-2">
+        <button id="btn" class="button">Confirm</button>
+        </div>
     </div>
-    <button id="restart">Restart</button>
+    
     <div class="grid">
         <div class="grid-cell" id="1" data-value="1"></div>
         <div class="grid-cell" id="2" data-value="2"></div>
@@ -28,6 +31,6 @@
         <div class="grid-cell" id="8" data-value="8"></div>
         <div class="grid-cell" id="9" data-value="9"></div>
     </div>
-    
+    <button id="restart" class="button">Restart</button>
 </body>
 </html>

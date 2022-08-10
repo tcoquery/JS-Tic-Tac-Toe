@@ -1,5 +1,10 @@
 const btn = document.querySelector("#btn");
 const restart = document.querySelector("#restart");
+const playerInfo = document.querySelector(".player-info");
+
+window.onload = function() {
+    playerInfo.style.display = "flex";
+}
 
 const player = (name, marker) => {
     return {name, marker};
@@ -15,8 +20,7 @@ const gameBoard = (() => {
         }
     }
 
-    const updateBoard = (n) => {
-        console.log(winningCombinations.length)
+    const updateBoard = (n) => {      
         if(gameFlow.round % 2 != 0) {
             if(board[n-1] == "X" || board[n-1] == "O") {
                 alert("This cell is already occupied !");
@@ -54,9 +58,9 @@ const gameBoard = (() => {
     const checkWinner = () => {
         for (let i = 0; i < 8; i++) {
             if (winningCombinations[i].every(elem => elem == "X")) {
-                alert("Player 1 has won!");
+                alert(`${gameFlow.player1.name} has won!`);
             } else if (winningCombinations[i].every(elem => elem == "O")) {
-                alert("Player 2 has won!");
+                alert(`${gameFlow.player2.name} has won!`);
             }  
         } if (gameFlow.round == 10) {
             alert("it's a draw!");
@@ -101,12 +105,12 @@ grid.forEach(cell =>{
 
 btn.addEventListener("click", () => {
     if(document.getElementById('player-1').value == "" || document.getElementById('player-2').value == "") {
-        alert("Players' name cannot be empty.");
+        alert("Players' names cannot be empty.");
         return;
     } else {
         gameFlow.player1 = player(document.getElementById('player-1').value, "X"); 
         gameFlow.player2 = player(document.getElementById('player-2').value, "O");
-        document.querySelector(".player-info").style.visibility = "hidden";
+        playerInfo.style.display = "none";
     }
 });
 
@@ -115,3 +119,5 @@ restart.addEventListener("click", () => {
 })
 
 gameBoard.displayBoard();
+
+
