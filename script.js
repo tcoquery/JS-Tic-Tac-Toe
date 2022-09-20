@@ -59,8 +59,10 @@ const gameBoard = (() => {
         for (let i = 0; i < 8; i++) {
             if (winningCombinations[i].every(elem => elem == "X")) {
                 alert(`${gameFlow.player1.name} has won!`);
+                return;
             } else if (winningCombinations[i].every(elem => elem == "O")) {
                 alert(`${gameFlow.player2.name} has won!`);
+                return;
             }  
         } if (gameFlow.round == 10) {
             alert("it's a draw!");
